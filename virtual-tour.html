@@ -83,7 +83,7 @@
       kitchen: {
         title: "Kitchen",
         image: "https://images.unsplash.com/photo-1556911220-bda9f7f7597e?auto=format&fit=crop&w=1200&q=80",
-        description: "Our kitchen supports daily fresh meal prep with nutrition-focused menus and resident preferences in mind."
+        description: "Our professional kitchen is supported by an attached dishwashing room and dedicated pantry to keep service efficient and organized. Fresh homemade bread is prepared regularly alongside our full <a href='menu.html'>menu</a>, with meals crafted for both comfort and nutrition. Residents can request snacks at any time, helping us support personal preferences throughout the day. This space is built to deliver consistent quality while maintaining the warmth of home-style dining."
       },
       dining: {
         title: "Dining Room",
@@ -93,32 +93,32 @@
       backyard: {
         title: "Backyard",
         image: "https://images.unsplash.com/photo-1501004318641-b39e6451bec6?auto=format&fit=crop&w=1200&q=80",
-        description: "A relaxing outdoor backyard space for fresh air, movement, and family visits."
+        description: "Our backyard includes a climbing tower, swingset, sandbox, and playhouse to make family visits more joyful and interactive across generations. We intentionally design this area so children and loved ones can enjoy meaningful time with their grandparents in a welcoming setting. Comfortable outdoor seating supports longer, more relaxed visits for families and friends. A covered sidewalk runs around the entire facility, making outdoor movement and connection easier in every season."
       },
       animals: {
         title: "Animals",
         image: "https://images.unsplash.com/photo-1517849845537-4d257902454a?auto=format&fit=crop&w=1200&q=80",
-        description: "Friendly companion animals that bring comfort, joy, and daily connection for residents."
+        description: "Residents enjoy regular interaction with a variety of animals, including goats, chickens, two Great Pyrenees dogs, cows, and tortoises. All animals are cared for by the facility owners, ensuring consistent attention and a safe environment. This hands-on connection with animals adds comfort, routine, and moments of joy to everyday life. It also creates memorable experiences for visiting families and younger guests."
       },
       library: {
         title: "Library",
         image: "https://images.unsplash.com/photo-1507842217343-583bb7270b66?auto=format&fit=crop&w=1200&q=80",
-        description: "A quiet reading library with books, puzzles, and cozy seating for calm moments."
+        description: "Located in the Great Room, the library wall features 13 bookcases available to all residents. The collection includes fiction, nonfiction, religious titles, and audiobooks to support a wide range of interests and reading styles. Residents are free to browse and enjoy materials at their own pace in a comfortable shared setting. This space encourages lifelong learning, reflection, and meaningful conversation."
       },
       music: {
         title: "Music",
         image: "https://images.unsplash.com/photo-1511379938547-c1f69419868d?auto=format&fit=crop&w=1200&q=80",
-        description: "A music area for sing-alongs, live performances, and uplifting community activities."
+        description: "Located in the Great Room, the music area includes a Baby Grand piano, keyboard, and integrated sound system. Karaoke nights, recitals, and other musical gatherings are a regular part of community life. These events support expression, memory, and social connection in an uplifting environment. Whether participating or listening, residents can enjoy music as a meaningful part of the day."
       },
       greatroom: {
         title: "Great Room",
         image: "https://images.unsplash.com/photo-1616594039964-3f6fa59f4fbb?auto=format&fit=crop&w=1200&q=80",
-        description: "Our central great room where residents gather for conversation, games, and events."
+        description: "Our central Great Room serves as the heart of the home, where residents gather for conversation, activities, and shared events."
       },
       gardens: {
         title: "Gardens",
         image: "https://images.unsplash.com/photo-1466692476868-aef1dfb1e735?auto=format&fit=crop&w=1200&q=80",
-        description: "Peaceful garden paths and seating designed for reflection and gentle outdoor activity."
+        description: "Garden boxes line the south side of the facility and are used to grow fresh vegetables and fruits such as tomatoes, cabbage, peppers, and broccoli. The property also features fruit trees on the north, south, and west sides. Seasonal harvests include dates, apples, peaches, apricots, pomegranates, oranges, lemons, and grapefruits. These gardens support fresh ingredients, outdoor engagement, and a strong sense of home."
       },
       office: {
         title: "Office",
@@ -142,7 +142,7 @@
         titleEl.textContent = data.title;
         imageEl.src = data.image;
         imageEl.alt = data.title;
-        descEl.textContent = data.description;
+        descEl.innerHTML = data.description;
         modal.classList.add("open");
         modal.setAttribute("aria-hidden", "false");
       });
