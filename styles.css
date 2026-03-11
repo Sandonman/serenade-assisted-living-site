@@ -195,3 +195,13 @@ ul {
 #tour-description {
   margin: 0.8rem 0 1rem;
 }
+
+#tour-description a {
+  color: var(--salmon-deep);
+  text-decoration: underline;
+  font-weight: 600;
+}
+
+#tour-description a:hover {
+  color: #c95f53;
+}
