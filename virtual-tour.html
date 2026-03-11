@@ -22,10 +22,102 @@
     </nav>
   </header>
 
-  <main></main>
+  <main>
+    <section class="card">
+      <h2>Interactive Facility Tour (Sample)</h2>
+      <p>Click a location button on the floor plan to open a preview with a description. We can swap these placeholders for real photos or video clips anytime.</p>
+    </section>
+
+    <section class="card">
+      <div class="floorplan-wrap" aria-label="Facility floor plan with clickable locations">
+        <div class="floorplan-base">
+          <p>Facility Floor Plan</p>
+        </div>
+
+        <button class="tour-pin" style="top: 12%; left: 8%;" data-tour-key="front">Front of Facility</button>
+        <button class="tour-pin" style="top: 24%; left: 62%;" data-tour-key="bedrooms">Bedrooms</button>
+        <button class="tour-pin" style="top: 54%; left: 68%;" data-tour-key="bathrooms">Bathrooms</button>
+        <button class="tour-pin" style="top: 64%; left: 22%;" data-tour-key="kitchen">Kitchen</button>
+        <button class="tour-pin" style="top: 72%; left: 56%;" data-tour-key="dining">Dining Room</button>
+      </div>
+    </section>
+  </main>
+
+  <div class="tour-modal" id="tour-modal" aria-hidden="true" role="dialog" aria-label="Tour location preview">
+    <div class="tour-modal-card">
+      <button class="tour-modal-close" id="tour-close" aria-label="Close preview">×</button>
+      <h3 id="tour-title">Tour Location</h3>
+      <img id="tour-image" src="" alt="Tour location preview" />
+      <p id="tour-description"></p>
+    </div>
+  </div>
 
   <footer class="site-footer">
     © 2026 Serenade Assisted Living · Sample site framework
   </footer>
+
+  <script>
+    const tourData = {
+      front: {
+        title: "Front of Facility",
+        image: "https://images.unsplash.com/photo-1505693416388-ac5ce068fe85?auto=format&fit=crop&w=1200&q=80",
+        description: "A welcoming front entrance with easy drop-off access and comfortable outdoor seating for family arrivals."
+      },
+      bedrooms: {
+        title: "Bedrooms",
+        image: "https://images.unsplash.com/photo-1505693314120-0d443867891c?auto=format&fit=crop&w=1200&q=80",
+        description: "Private and semi-private room layouts designed for comfort, safety, and personal style."
+      },
+      bathrooms: {
+        title: "Bathrooms",
+        image: "https://images.unsplash.com/photo-1620626011761-996317b8d101?auto=format&fit=crop&w=1200&q=80",
+        description: "Accessible bathrooms with safety rails, supportive layouts, and easy-to-use fixtures."
+      },
+      kitchen: {
+        title: "Kitchen",
+        image: "https://images.unsplash.com/photo-1556911220-bda9f7f7597e?auto=format&fit=crop&w=1200&q=80",
+        description: "Our kitchen supports daily fresh meal prep with nutrition-focused menus and resident preferences in mind."
+      },
+      dining: {
+        title: "Dining Room",
+        image: "https://images.unsplash.com/photo-1414235077428-338989a2e8c0?auto=format&fit=crop&w=1200&q=80",
+        description: "A warm dining space for shared meals, conversation, and community moments throughout the day."
+      }
+    };
+
+    const modal = document.getElementById("tour-modal");
+    const titleEl = document.getElementById("tour-title");
+    const imageEl = document.getElementById("tour-image");
+    const descEl = document.getElementById("tour-description");
+    const closeBtn = document.getElementById("tour-close");
+
+    document.querySelectorAll(".tour-pin").forEach((btn) => {
+      btn.addEventListener("click", () => {
+        const key = btn.dataset.tourKey;
+        const data = tourData[key];
+        if (!data) return;
+
+        titleEl.textContent = data.title;
+        imageEl.src = data.image;
+        imageEl.alt = data.title;
+        descEl.textContent = data.description;
+        modal.classList.add("open");
+        modal.setAttribute("aria-hidden", "false");
+      });
+    });
+
+    function closeModal() {
+      modal.classList.remove("open");
+      modal.setAttribute("aria-hidden", "true");
+    }
+
+    closeBtn.addEventListener("click", closeModal);
+    modal.addEventListener("click", (event) => {
+      if (event.target === modal) closeModal();
+    });
+    document.addEventListener("keydown", (event) => {
+      if (event.key === "Escape") closeModal();
+    });
+  </script>
 </body>
 </html>

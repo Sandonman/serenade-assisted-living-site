@@ -99,3 +99,99 @@ ul {
   font-size: 0.9rem;
   text-align: center;
 }
+
+.floorplan-wrap {
+  position: relative;
+  width: 100%;
+  min-height: 460px;
+  border: 2px dashed var(--border);
+  border-radius: 14px;
+  background: #fff7f4;
+  overflow: hidden;
+}
+
+.floorplan-base {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  color: #b1847d;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  background:
+    linear-gradient(90deg, rgba(244,147,134,0.15) 1px, transparent 1px) 0 0/36px 36px,
+    linear-gradient(rgba(244,147,134,0.15) 1px, transparent 1px) 0 0/36px 36px,
+    #fffdfb;
+}
+
+.tour-pin {
+  position: absolute;
+  border: 1px solid var(--salmon);
+  background: #fff;
+  color: #7c4038;
+  border-radius: 999px;
+  padding: 0.45rem 0.7rem;
+  font-size: 0.85rem;
+  cursor: pointer;
+  box-shadow: 0 3px 10px rgba(0,0,0,0.07);
+}
+
+.tour-pin:hover {
+  background: var(--salmon);
+  color: #fff;
+}
+
+.tour-modal {
+  position: fixed;
+  inset: 0;
+  background: rgba(62, 51, 48, 0.48);
+  display: none;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+  z-index: 20;
+}
+
+.tour-modal.open {
+  display: flex;
+}
+
+.tour-modal-card {
+  width: min(760px, 96vw);
+  background: #fff;
+  border-radius: 14px;
+  border: 1px solid var(--border);
+  overflow: hidden;
+  position: relative;
+}
+
+.tour-modal-close {
+  position: absolute;
+  right: 0.6rem;
+  top: 0.4rem;
+  border: none;
+  background: transparent;
+  font-size: 1.5rem;
+  cursor: pointer;
+  color: #8a5e57;
+}
+
+#tour-title,
+#tour-description {
+  padding: 0 1rem;
+}
+
+#tour-title {
+  margin: 1rem 0 0.45rem;
+}
+
+#tour-image {
+  width: 100%;
+  max-height: 360px;
+  object-fit: cover;
+  display: block;
+}
+
+#tour-description {
+  margin: 0.8rem 0 1rem;
+}
