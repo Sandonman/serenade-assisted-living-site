@@ -78,6 +78,24 @@ main {
   margin-bottom: 1rem;
 }
 
+.feature-photo {
+  padding: 0.7rem;
+}
+
+.feature-photo img {
+  width: 100%;
+  display: block;
+  border-radius: 12px;
+  max-height: 520px;
+  object-fit: cover;
+}
+
+.feature-photo.two-up {
+  display: grid;
+  gap: 0.7rem;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+}
+
 h1, h2, h3 {
   line-height: 1.25;
 }
