@@ -158,6 +158,13 @@ ul {
   padding: 0.85rem 1rem 1rem;
 }
 
+.tour-gallery {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 0.7rem;
+  margin-bottom: 0.7rem;
+}
+
 .tour-panel img {
   width: 100%;
   max-height: 320px;
@@ -165,7 +172,12 @@ ul {
   border-radius: 10px;
   border: 1px solid #f3ddd8;
   background: #fffdfb;
-  margin-bottom: 0.7rem;
+}
+
+@media (min-width: 760px) {
+  .tour-gallery {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
 }
 
 .tour-panel p {

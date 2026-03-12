@@ -104,7 +104,7 @@
       const data = tourData[key];
       if (!data) return "";
       const images = Array.isArray(data.images) && data.images.length ? data.images : (data.image ? [data.image] : []);
-      const galleryHtml = images.map((src, imageIdx) => `<img src="${src}" alt="${data.title} photo ${imageIdx + 1}" loading="lazy" />`).join("");
+      const galleryHtml = `<div class="tour-gallery">${images.map((src, imageIdx) => `<img src="${src}" alt="${data.title} photo ${imageIdx + 1}" loading="lazy" />`).join("")}</div>`;
 
       return `
         <article class="tour-item${idx === 0 ? " open" : ""}" data-tour-item>
