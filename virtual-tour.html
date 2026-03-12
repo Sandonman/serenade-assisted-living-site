@@ -24,40 +24,15 @@
 
   <main>
     <section class="card">
-      <h2>Interactive Facility Tour (Sample)</h2>
-      <p>Click a location button on the floor plan to open a preview with a description. We can swap these placeholders for real photos or video clips anytime.</p>
+      <h2>Interactive Facility Tour</h2>
+      <p>Choose a section to expand photos and details. Only one section opens at a time.</p>
     </section>
 
     <section class="card">
-      <div class="floorplan-wrap" aria-label="Facility floor plan with clickable locations">
-        <div class="floorplan-base">
-          <p>Facility Floor Plan</p>
-        </div>
-
-        <button class="tour-pin" style="top: 12%; left: 8%;" data-tour-key="front">Front of Facility</button>
-        <button class="tour-pin" style="top: 24%; left: 62%;" data-tour-key="bedrooms">Bedrooms</button>
-        <button class="tour-pin" style="top: 54%; left: 68%;" data-tour-key="bathrooms">Bathrooms</button>
-        <button class="tour-pin" style="top: 64%; left: 22%;" data-tour-key="kitchen">Kitchen</button>
-        <button class="tour-pin" style="top: 72%; left: 56%;" data-tour-key="dining">Dining Room</button>
-        <button class="tour-pin" style="top: 86%; left: 10%;" data-tour-key="backyard">Backyard</button>
-        <button class="tour-pin" style="top: 36%; left: 10%;" data-tour-key="animals">Animals</button>
-        <button class="tour-pin" style="top: 34%; left: 42%;" data-tour-key="library">Library</button>
-        <button class="tour-pin" style="top: 18%; left: 36%;" data-tour-key="music">Music</button>
-        <button class="tour-pin" style="top: 48%; left: 38%;" data-tour-key="greatroom">Great Room</button>
-        <button class="tour-pin" style="top: 82%; left: 34%;" data-tour-key="gardens">Gardens</button>
-      </div>
+      <div id="tour-accordion" class="tour-accordion" aria-label="Facility tour sections"></div>
     </section>
 
   </main>
-
-  <div class="tour-modal" id="tour-modal" aria-hidden="true" role="dialog" aria-label="Tour location preview">
-    <div class="tour-modal-card">
-      <button class="tour-modal-close" id="tour-close" aria-label="Close preview">×</button>
-      <h3 id="tour-title">Tour Location</h3>
-      <img id="tour-image" src="" alt="Tour location preview" />
-      <p id="tour-description"></p>
-    </div>
-  </div>
 
   <footer class="site-footer">
     © 2026 Serenade Assisted Living · Sample site framework
@@ -122,38 +97,50 @@
       }
     };
 
-    const modal = document.getElementById("tour-modal");
-    const titleEl = document.getElementById("tour-title");
-    const imageEl = document.getElementById("tour-image");
-    const descEl = document.getElementById("tour-description");
-    const closeBtn = document.getElementById("tour-close");
+    const accordion = document.getElementById("tour-accordion");
+    const tourOrder = ["front", "bedrooms", "bathrooms", "kitchen", "dining", "backyard", "animals", "library", "music", "greatroom", "gardens"];
 
-    document.querySelectorAll(".tour-pin").forEach((btn) => {
+    accordion.innerHTML = tourOrder.map((key, idx) => {
+      const data = tourData[key];
+      if (!data) return "";
+      return `
+        <article class="tour-item${idx === 0 ? " open" : ""}" data-tour-item>
+          <button class="tour-toggle" type="button" aria-expanded="${idx === 0 ? "true" : "false"}" data-tour-toggle>
+            <span>${data.title}</span>
+            <span class="tour-toggle-icon" aria-hidden="true">${idx === 0 ? "−" : "+"}</span>
+          </button>
+          <div class="tour-panel" ${idx === 0 ? "" : "hidden"}>
+            <img src="${data.image}" alt="${data.title}" loading="lazy" />
+            <p>${data.description}</p>
+          </div>
+        </article>
+      `;
+    }).join("");
+
+    accordion.querySelectorAll("[data-tour-toggle]").forEach((btn) => {
       btn.addEventListener("click", () => {
-        const key = btn.dataset.tourKey;
-        const data = tourData[key];
-        if (!data) return;
+        const currentItem = btn.closest("[data-tour-item]");
+        const isOpen = currentItem.classList.contains("open");
 
-        titleEl.textContent = data.title;
-        imageEl.src = data.image;
-        imageEl.alt = data.title;
-        descEl.innerHTML = data.description;
-        modal.classList.add("open");
-        modal.setAttribute("aria-hidden", "false");
+        accordion.querySelectorAll("[data-tour-item]").forEach((item) => {
+          item.classList.remove("open");
+          const toggle = item.querySelector("[data-tour-toggle]");
+          const panel = item.querySelector(".tour-panel");
+          const icon = item.querySelector(".tour-toggle-icon");
+          if (toggle) toggle.setAttribute("aria-expanded", "false");
+          if (panel) panel.hidden = true;
+          if (icon) icon.textContent = "+";
+        });
+
+        if (!isOpen) {
+          currentItem.classList.add("open");
+          const panel = currentItem.querySelector(".tour-panel");
+          const icon = currentItem.querySelector(".tour-toggle-icon");
+          btn.setAttribute("aria-expanded", "true");
+          if (panel) panel.hidden = false;
+          if (icon) icon.textContent = "−";
+        }
       });
-    });
-
-    function closeModal() {
-      modal.classList.remove("open");
-      modal.setAttribute("aria-hidden", "true");
-    }
-
-    closeBtn.addEventListener("click", closeModal);
-    modal.addEventListener("click", (event) => {
-      if (event.target === modal) closeModal();
-    });
-    document.addEventListener("keydown", (event) => {
-      if (event.key === "Escape") closeModal();
     });
   </script>
 </body>
