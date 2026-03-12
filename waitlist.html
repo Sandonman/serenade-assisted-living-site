@@ -22,10 +22,135 @@
     </nav>
   </header>
 
-  <main></main>
+  <main>
+    <section class="card">
+      <h2>Waitlist Eligibility &amp; Placement Disclaimer</h2>
+      <p>
+        Serenade Assisted Living is a <strong>private-pay only</strong> community.
+        We <strong>do not accept Arizona Long-Term Care System (ALTCS)</strong>.
+      </p>
+      <ul>
+        <li>We do not accept residents with colostomy bags.</li>
+        <li>We do not accept residents who require constant nursing supervision.</li>
+        <li>We do not accept residents who require IV use.</li>
+        <li>We are licensed for <strong>10 residents</strong>.</li>
+        <li>Vacancies are infrequent, and the waitlist is used whenever an opening becomes available.</li>
+        <li>
+          Waitlist placement order may be adjusted based on current vacancy needs and candidate availability,
+          so in some cases a lower waitlist position may be contacted first.
+        </li>
+      </ul>
+      <p>
+        Serenade Assisted Living provides a full range of care for residents living with
+        <strong>dementia</strong> and <strong>Alzheimer’s</strong>.
+      </p>
+    </section>
+
+    <section class="card">
+      <h3>Join the Waitlist</h3>
+      <p>
+        Complete this form to submit candidate information to the facility owners.
+        <strong>Waitlist candidates will be contacted within 48 hours</strong> for any additional information needed.
+      </p>
+
+      <form id="waitlist-form" class="waitlist-form" novalidate>
+        <div class="form-grid">
+          <label>
+            Resident Name
+            <input type="text" name="residentName" required />
+          </label>
+
+          <label>
+            Resident Date of Birth
+            <input type="date" name="residentDob" required />
+          </label>
+
+          <label>
+            Family Member / Advocate Name
+            <input type="text" name="advocateName" required />
+          </label>
+
+          <label>
+            Phone Number
+            <input type="tel" name="phone" required />
+          </label>
+
+          <label>
+            Email Address
+            <input type="email" name="email" required />
+          </label>
+
+          <label>
+            Current Residence
+            <select name="currentResidence" required>
+              <option value="" selected disabled>Select one</option>
+              <option>Home</option>
+              <option>Family Member's Home</option>
+              <option>Another Facility</option>
+              <option>Hospital</option>
+              <option>Other</option>
+            </select>
+          </label>
+
+          <label>
+            Referred By
+            <select name="referredBy" required>
+              <option value="" selected disabled>Select one</option>
+              <option>Online</option>
+              <option>Friend or Family</option>
+              <option>Healthcare Professional</option>
+              <option>Hospital Discharge Planner</option>
+              <option>Social Worker / Case Manager</option>
+              <option>Event at Serenade</option>
+              <option>Other</option>
+            </select>
+          </label>
+        </div>
+
+        <button type="submit" class="btn-primary">Send Waitlist Request</button>
+        <p id="waitlist-message" class="waitlist-message" aria-live="polite"></p>
+      </form>
+
+      <p><strong>Phone:</strong> <a href="tel:4806768785">(480) 676-8785</a></p>
+      <p><strong>Email:</strong> <a href="mailto:calzoni8@yahoo.com">calzoni8@yahoo.com</a></p>
+    </section>
+  </main>
 
   <footer class="site-footer">
     © 2026 Serenade Assisted Living · Sample site framework
   </footer>
+
+  <script>
+    const form = document.getElementById('waitlist-form');
+    const msg = document.getElementById('waitlist-message');
+
+    form?.addEventListener('submit', (event) => {
+      event.preventDefault();
+
+      if (!form.checkValidity()) {
+        msg.textContent = 'Please complete all required fields before sending.';
+        return;
+      }
+
+      const data = new FormData(form);
+      const body = [
+        'New Waitlist Candidate Submission',
+        '',
+        `Resident Name: ${data.get('residentName')}`,
+        `Resident Date of Birth: ${data.get('residentDob')}`,
+        `Family Member / Advocate Name: ${data.get('advocateName')}`,
+        `Phone Number: ${data.get('phone')}`,
+        `Email Address: ${data.get('email')}`,
+        `Current Residence: ${data.get('currentResidence')}`,
+        `Referred By: ${data.get('referredBy')}`
+      ].join('\n');
+
+      const subject = encodeURIComponent('Serenade Waitlist Submission');
+      const mailBody = encodeURIComponent(body);
+      window.location.href = `mailto:calzoni8@yahoo.com?subject=${subject}&body=${mailBody}`;
+
+      msg.textContent = 'Your email draft opened. Please send it to complete the waitlist request.';
+    });
+  </script>
 </body>
 </html>
