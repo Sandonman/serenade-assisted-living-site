@@ -121,10 +121,13 @@
   </footer>
 
   <script>
+    window.WAITLIST_API_BASE = 'https://serenade-waitlist-api.onrender.com';
+    const API_BASE = window.WAITLIST_API_BASE || '';
+
     const form = document.getElementById('waitlist-form');
     const msg = document.getElementById('waitlist-message');
 
-    form?.addEventListener('submit', (event) => {
+    form?.addEventListener('submit', async (event) => {
       event.preventDefault();
 
       if (!form.checkValidity()) {
@@ -133,23 +136,31 @@
       }
 
       const data = new FormData(form);
-      const body = [
-        'New Waitlist Candidate Submission',
-        '',
-        `Resident Name: ${data.get('residentName')}`,
-        `Resident Date of Birth: ${data.get('residentDob')}`,
-        `Family Member / Advocate Name: ${data.get('advocateName')}`,
-        `Phone Number: ${data.get('phone')}`,
-        `Email Address: ${data.get('email')}`,
-        `Current Residence: ${data.get('currentResidence')}`,
-        `Referred By: ${data.get('referredBy')}`
-      ].join('\n');
+      const payload = {
+        residentName: data.get('residentName'),
+        residentDob: data.get('residentDob'),
+        advocateName: data.get('advocateName'),
+        phone: data.get('phone'),
+        email: data.get('email'),
+        currentResidence: data.get('currentResidence'),
+        referredBy: data.get('referredBy')
+      };
 
-      const subject = encodeURIComponent('Serenade Waitlist Submission');
-      const mailBody = encodeURIComponent(body);
-      window.location.href = `mailto:calzoni8@yahoo.com?subject=${subject}&body=${mailBody}`;
+      try {
+        msg.textContent = 'Sending request...';
+        const response = await fetch(`${API_BASE}/api/waitlist`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(payload)
+        });
 
-      msg.textContent = 'Your email draft opened. Please send it to complete the waitlist request.';
+        if (!response.ok) throw new Error('request failed');
+
+        form.reset();
+        msg.textContent = 'Thanks! Your waitlist request was sent. A team member will contact you within 48 hours.';
+      } catch (_error) {
+        msg.textContent = 'We could not submit right now. Please call us at (480) 676-8785.';
+      }
     });
   </script>
 </body>

@@ -1,0 +1,17 @@
+services:
+  - type: web
+    name: serenade-waitlist-api
+    runtime: node
+    rootDir: .
+    buildCommand: npm install
+    startCommand: npm start
+    plan: free
+    envVars:
+      - key: NODE_VERSION
+        value: 22
+      - key: RESEND_API_KEY
+        sync: false
+      - key: WAITLIST_FROM_EMAIL
+        sync: false
+      - key: WAITLIST_TO_EMAILS
+        sync: false
