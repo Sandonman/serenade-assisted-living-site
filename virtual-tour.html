@@ -42,57 +42,57 @@
     const tourData = {
       front: {
         title: "Front of Facility",
-        image: "assets/images/front-of-facility.jpg",
+        images: ["assets/images/front-of-facility-1.jpg", "assets/images/front-of-facility-2.jpg"],
         description: "Serenade Assisted Living is located at 25403 S. 154th St., Gilbert, AZ 85298, in a peaceful rural setting designed for comfort and calm. The community features a gated entrance, providing an added layer of privacy and security for residents and families. Set on 2.5 acres, the property offers open space and a relaxed atmosphere that feels welcoming from the moment you arrive. The front approach reflects the overall tone of the home: warm, professional, and thoughtfully maintained."
       },
       bedrooms: {
         title: "Bedrooms",
-        image: "assets/images/bedrooms.jpg",
+        images: ["assets/images/bedrooms-1.jpg", "assets/images/bedrooms-2.jpg"],
         description: "All resident bedrooms are private, offering each person a comfortable space of their own. Rooms are approximately 13 by 14 feet and can be furnished either by the facility or by family, depending on personal preference. Non-permanent decorations are encouraged so residents can personalize their environment and make it feel like home. For safety, rugs are discouraged to help reduce potential tripping hazards."
       },
       bathrooms: {
         title: "Bathrooms",
-        image: "assets/images/bathrooms.jpg",
+        images: ["assets/images/bathrooms-1.jpg", "assets/images/bathrooms-2.jpg"],
         description: "Each private resident room includes its own private bathroom for comfort and dignity. Bathrooms are attached to the bedroom and separated by a privacy curtain, which supports easy access for both residents and caregivers. Each bathroom also includes a closet and shelving for organized storage of personal and care supplies. This setup helps keep daily routines safe, efficient, and respectful."
       },
       kitchen: {
         title: "Kitchen",
-        image: "assets/images/kitchen.jpg",
+        images: ["assets/images/kitchen.jpg", "assets/images/kitchen-2.jpg"],
         description: "Our professional kitchen is supported by an attached dishwashing room and dedicated pantry to keep service efficient and organized. Fresh homemade bread is prepared regularly alongside our full <a href='menu.html'>menu</a>, with meals crafted for both comfort and nutrition. Residents can request snacks at any time, helping us support personal preferences throughout the day. This space is built to deliver consistent quality while maintaining the warmth of home-style dining."
       },
       dining: {
         title: "Dining Room",
-        image: "assets/images/dining-room.jpg",
+        images: ["assets/images/dining-room.jpg", "assets/images/dining-room-2.jpg"],
         description: "Located in the Great Room, the dining area features two main tables used daily by residents and visiting loved ones. The layout supports both routine meals and easy social connection in a welcoming shared space. Additional tables and chairs can be set up as needed for parties, family gatherings, and special events. This flexibility helps the space adapt comfortably to both everyday dining and larger celebrations."
       },
       backyard: {
         title: "Backyard",
-        image: "assets/images/backyard.jpg",
+        images: ["assets/images/backyard.jpg", "assets/images/backyard-2.jpg"],
         description: "Our backyard includes a climbing tower, swingset, sandbox, and playhouse to make family visits more joyful and interactive across generations. We intentionally design this area so children and loved ones can enjoy meaningful time with their grandparents in a welcoming setting. Comfortable outdoor seating supports longer, more relaxed visits for families and friends. A covered sidewalk runs around the entire facility, making outdoor movement and connection easier in every season."
       },
       animals: {
         title: "Animals",
-        image: "assets/images/animals.jpg",
+        images: ["assets/images/animals.jpg", "assets/images/animals-2.jpg"],
         description: "Residents enjoy regular interaction with a variety of animals, including goats, chickens, two Great Pyrenees dogs, cows, and tortoises. All animals are cared for by the facility owners, ensuring consistent attention and a safe environment. This hands-on connection with animals adds comfort, routine, and moments of joy to everyday life. It also creates memorable experiences for visiting families and younger guests."
       },
       library: {
         title: "Library",
-        image: "assets/images/library.jpg",
+        images: ["assets/images/library.jpg", "assets/images/library-2.jpg"],
         description: "Located in the Great Room, the library wall features 13 bookcases available to all residents. The collection includes fiction, nonfiction, religious titles, and audiobooks to support a wide range of interests and reading styles. Residents are free to browse and enjoy materials at their own pace in a comfortable shared setting. This space encourages lifelong learning, reflection, and meaningful conversation."
       },
       music: {
         title: "Music",
-        image: "assets/images/music.jpg",
+        images: ["assets/images/music.jpg", "assets/images/music-2.jpg"],
         description: "Located in the Great Room, the music area includes a Baby Grand piano, keyboard, and integrated sound system. Karaoke nights, recitals, and other musical gatherings are a regular part of community life. These events support expression, memory, and social connection in an uplifting environment. Whether participating or listening, residents can enjoy music as a meaningful part of the day."
       },
       greatroom: {
         title: "Great Room",
-        image: "assets/images/great-room.jpg",
+        images: ["assets/images/great-room.jpg", "assets/images/great-room-2.jpg"],
         description: "The Great Room offers plenty of comfortable seating and serves as a central place for daily connection and community life. Residents have TV access for entertainment, shared viewing, and favorite programs. The room also includes a Wall of Remembrance honoring past residents and the meaningful lives they lived. A fish tank adds a calming focal point that residents and families enjoy throughout the day."
       },
       gardens: {
         title: "Gardens",
-        image: "assets/images/gardens.jpg",
+        images: ["assets/images/gardens.jpg", "assets/images/gardens-2.jpg"],
         description: "Garden boxes line the south side of the facility and are used to grow fresh vegetables and fruits such as tomatoes, cabbage, peppers, and broccoli. The property also features fruit trees on the north, south, and west sides. Seasonal harvests include dates, apples, peaches, apricots, pomegranates, oranges, lemons, and grapefruits. These gardens support fresh ingredients, outdoor engagement, and a strong sense of home."
       }
     };
@@ -103,6 +103,9 @@
     accordion.innerHTML = tourOrder.map((key, idx) => {
       const data = tourData[key];
       if (!data) return "";
+      const images = Array.isArray(data.images) && data.images.length ? data.images : (data.image ? [data.image] : []);
+      const galleryHtml = images.map((src, imageIdx) => `<img src="${src}" alt="${data.title} photo ${imageIdx + 1}" loading="lazy" />`).join("");
+
       return `
         <article class="tour-item${idx === 0 ? " open" : ""}" data-tour-item>
           <button class="tour-toggle" type="button" aria-expanded="${idx === 0 ? "true" : "false"}" data-tour-toggle>
@@ -110,7 +113,7 @@
             <span class="tour-toggle-icon" aria-hidden="true">${idx === 0 ? "−" : "+"}</span>
           </button>
           <div class="tour-panel" ${idx === 0 ? "" : "hidden"}>
-            <img src="${data.image}" alt="${data.title}" loading="lazy" />
+            ${galleryHtml}
             <p>${data.description}</p>
           </div>
         </article>
