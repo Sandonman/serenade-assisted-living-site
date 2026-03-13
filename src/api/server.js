@@ -29,7 +29,7 @@ app.post('/api/waitlist', async (req, res) => {
   try {
     const {
       residentName,
-      residentDob,
+      residentAge,
       advocateName,
       phone,
       email,
@@ -37,7 +37,7 @@ app.post('/api/waitlist', async (req, res) => {
       referredBy
     } = req.body || {};
 
-    const required = [residentName, residentDob, advocateName, phone, email, currentResidence, referredBy];
+    const required = [residentName, residentAge, advocateName, phone, email, currentResidence, referredBy];
     if (required.some((v) => !v || String(v).trim() === '')) {
       return res.status(400).json({ ok: false, error: 'Missing required fields' });
     }
@@ -54,7 +54,7 @@ app.post('/api/waitlist', async (req, res) => {
     const html = `
       <h2>New Waitlist Candidate Submission</h2>
       <p><strong>Resident Name:</strong> ${residentName}</p>
-      <p><strong>Resident Date of Birth:</strong> ${residentDob}</p>
+      <p><strong>Resident Age:</strong> ${residentAge}</p>
       <p><strong>Family Member / Advocate:</strong> ${advocateName}</p>
       <p><strong>Phone:</strong> ${phone}</p>
       <p><strong>Email:</strong> ${email}</p>

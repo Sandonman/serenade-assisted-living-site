@@ -35,14 +35,9 @@
         <li>We do not accept residents who require IV use.</li>
         <li>We are licensed for <strong>10 residents</strong>.</li>
         <li>Vacancies are infrequent, and the waitlist is used whenever an opening becomes available.</li>
-        <li>
-          Waitlist placement order may be adjusted based on current vacancy needs and candidate availability,
-          so in some cases a lower waitlist position may be contacted first.
-        </li>
       </ul>
       <p>
-        Serenade Assisted Living provides a full range of care for residents living with
-        <strong>dementia</strong> and <strong>Alzheimer’s</strong>.
+        Serenade Assisted Living offers an extensive scope of service including memory care.
       </p>
     </section>
 
@@ -61,8 +56,8 @@
           </label>
 
           <label>
-            Resident Date of Birth
-            <input type="date" name="residentDob" required />
+            Resident Age
+            <input type="number" name="residentAge" min="0" max="120" required />
           </label>
 
           <label>
@@ -138,7 +133,7 @@
       const data = new FormData(form);
       const payload = {
         residentName: data.get('residentName'),
-        residentDob: data.get('residentDob'),
+        residentAge: data.get('residentAge'),
         advocateName: data.get('advocateName'),
         phone: data.get('phone'),
         email: data.get('email'),
